@@ -1,0 +1,26 @@
+#import-button-container {
+  display: flex;
+  gap: 4px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.markdown-import-status {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  position: fixed;
+  z-index: 1000;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}

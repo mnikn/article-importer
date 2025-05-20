@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Markdown Article Importer",
+  "version": "1.0",
+  "description": "将本地 Markdown 文件导入到支持的网站编辑器中",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://indienova.com/*",
+    "https://gcore.com/*",
+    "https://www.xiaoheihe.cn/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://indienova.com/home/blog/newpost",
+        "https://www.gcores.com/topics/editor",
+        "https://www.xiaoheihe.cn/creator/editor/draft/image_text",
+        "https://www.xiaoheihe.cn/creator/editor/draft/article",
+        "https://creator.xiaohongshu.com/publish/*"
+      ],
+      "js": [
+        "lib/marked.min.js",
+        "core/base-article-importer.js",
+        "core/indienova-article-importer.js",
+        "core/gcore-topic-importer.js",
+        "core/xiaoheihe-image-text-importer.js",
+        "core/xiaoheihe-article-importer.js",
+        "core/xiaohongshu-article-importer.js",
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+} 
