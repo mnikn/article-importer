@@ -9,6 +9,9 @@ class ArticleImporter {
   markdownContent = null;
   markdownImgUploadTable = null;
 
+  importMarkdownButtonText = '导入 Markdown 文件';
+  syncImgButtonText = '同步 Markdown 图片（选择图片目录）';
+
   constructor() {
     this.editor = null;
   }
@@ -24,7 +27,7 @@ class ArticleImporter {
     buttonContainer.id = 'import-button-container';
 
     const importMarkdownButton = document.createElement('button');
-    importMarkdownButton.textContent = '导入 Markdown';
+    importMarkdownButton.textContent = this.importMarkdownButtonText;
     importMarkdownButton.id = 'import-markdown-button';
     importMarkdownButton.className = 'action-button';
     importMarkdownButton.addEventListener('click', () => {
@@ -34,7 +37,7 @@ class ArticleImporter {
     buttonContainer.appendChild(importMarkdownButton);
 
     const syncImgButton = document.createElement('button');
-    syncImgButton.textContent = '同步 Markdown 图片（选择图片目录）';
+    syncImgButton.textContent = this.syncImgButtonText;
     syncImgButton.id = 'sync-img-button';
     syncImgButton.className = 'action-button';
     syncImgButton.addEventListener('click', async () => {
@@ -101,6 +104,29 @@ class ArticleImporter {
     });
 
     fileInput.click();
+  }
+
+  removeMarkdownImgLinks(content) {
+    if (!content) {
+      this.showStatus('请先导入 Markdown 文件', 'error');
+      return;
+    }
+
+
+    const imageRegex = /!\[.*?\]\((.*?)\)/g;
+    let match;
+    let processedContent = content;
+
+    const replaceTable = {}
+    while ((match = imageRegex.exec(processedContent)) !== null) {
+      replaceTable[match[0]] = '';
+    }
+
+    Object.keys(replaceTable).forEach(key => {
+      processedContent = processedContent.replaceAll(key, replaceTable[key]);
+    });
+
+    return processedContent;
   }
 
   async syncMarkdownImgs() {

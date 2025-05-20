@@ -3,24 +3,10 @@ class GcoreTopicImporter extends ArticleImporter {
     super();
   }
 
-  uploadImage(file) {
-    return Promise.resolve(null);
-    // const formData = new FormData();
-    // formData.append('file', file);
-    // return fetch("https://indienova.com/home/action/blogImageUpload", {
-    //   "body": formData,
-    //   "method": "POST",
-    //   "mode": "cors",
-    //   "credentials": "include"
-    // })
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     return res.link
-    //   })
-  }
-
-  getMarkdownImgReplaceContent(newImageUrl, imgContent) {
-    return '';
+  createImportButton() {
+    const buttonContainer = super.createImportButton();
+    buttonContainer.querySelector('#sync-img-button').style.display = 'none';
+    return buttonContainer;
   }
 
   getEditor() {
@@ -38,7 +24,8 @@ class GcoreTopicImporter extends ArticleImporter {
       return;
     }
     // 去除markdown语法标记
-    const plainText = this.markdownContent.replace(/[#*_`~[\](){}|>-]/g, '');
+    let plainText = this.removeMarkdownImgLinks(this.markdownContent);
+    plainText = plainText.replace(/[#*_`~[\](){}|>-]/g, '');
     return plainText;
   }
 

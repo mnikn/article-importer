@@ -5,12 +5,10 @@ const init = () => {
     'https://www.xiaoheihe.cn/creator/editor/draft/article': XiaoHeiHeArticleImporter,
     'https://www.xiaoheihe.cn/creator/editor/draft/image_text': XiaoHeiHeImageTextImporter,
     'https://creator.xiaohongshu.com/publish/publish': XiaoHongShuArticleImporter,
-    // 'gcore.com': GcoreImporter,
   }
 
   const href = window.location.href;
   const importerClass = importerTable[href.split('?')[0]];
-  console.log('importerClass', importerClass)
   if (importerClass) {
     const importer = new importerClass();
     importer.init();
