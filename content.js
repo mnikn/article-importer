@@ -1,6 +1,7 @@
 const init = () => {
   const importerTable = {
     'https://indienova.com/home/blog/newpost': IndieNovaImporter,
+    'https://indienova.com/home/blogedit': IndieNovaImporter,
     'https://www.gcores.com/topics/editor': GcoreTopicImporter,
     'https://www.xiaoheihe.cn/creator/editor/draft/article': XiaoHeiHeArticleImporter,
     'https://www.xiaoheihe.cn/creator/editor/draft/image_text': XiaoHeiHeImageTextImporter,
@@ -8,8 +9,11 @@ const init = () => {
   }
 
   const href = window.location.href;
-  const importerClass = importerTable[href.split('?')[0]];
-  if (importerClass) {
+  const importerClassKey = Object.keys(importerTable).find((key) => {
+    return href.startsWith(key);
+  })
+  if (importerClassKey) {
+    const importerClass = importerTable[importerClassKey];
     const importer = new importerClass();
     importer.init();
   }

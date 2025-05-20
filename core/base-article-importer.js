@@ -30,6 +30,7 @@ class ArticleImporter {
     importMarkdownButton.textContent = this.importMarkdownButtonText;
     importMarkdownButton.id = 'import-markdown-button';
     importMarkdownButton.className = 'action-button';
+    importMarkdownButton.type = 'button';
     importMarkdownButton.addEventListener('click', () => {
       this.importMarkdown();
     });
@@ -40,6 +41,7 @@ class ArticleImporter {
     syncImgButton.textContent = this.syncImgButtonText;
     syncImgButton.id = 'sync-img-button';
     syncImgButton.className = 'action-button';
+    syncImgButton.type = 'button';
     syncImgButton.addEventListener('click', async () => {
       const syncResult = await this.syncMarkdownImgs();
       this.markdownContent = syncResult.processedContent;
